@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zl.ipcservicetest">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".BundleTestActivity">
+            <intent-filter>
+                <action android:name="com.zl.ipcservicetest.MYACTION"  />
+                <data android:scheme="test"  />
+                <category android:name="android.intent.category.DEFAULT"  />
+            </intent-filter>
+        </activity>
+        <activity android:name=".FileTestActivity"/>
+        <activity android:name=".AidlTestActivity"/>
+        <activity android:name=".CPTestActivity"/>
+        <activity android:name=".MessengerTestActivity"/>
+        <activity android:name=".SocketTestActivity"/>
+
+        <!--exported:允许外界访问该服务，AIDL必备条件-->
+        <service
+            android:name=".MyService"
+            android:exported="true"/>
+
+        <service
+            android:name=".MessagerService"
+            android:exported="true" />
+
+        <!--permission跨进程需要声明“com.ryg.PROVIDER”权限 (但是写了没有用，不知道为什么)
+        enabled该属性表明了该content provider是否可以被实例化
+        exported该属性指示了content provider是否可以被其他应用程序使用-->
+        <provider
+            android:name=".MyContentProvider"
+            android:authorities="com.zl.ipcservicetest.mycontentprovider"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>
